@@ -1,7 +1,7 @@
-# Elite-Dangerous-Mining-Mapper
+# Elite Dangerous Mining Mapper
 A Stream Deck plugin that assists in the creation of mining maps for Elite Dangerous, with the ability to annotate and publish finished maps to share with others.
 
-# Elite Dangerous Mining Mapper - Installation Guide
+## Installation Guide
 
 A Stream Deck plugin for Elite Dangerous miners: screenshot your best asteroids while
 you mine, automatically organized by system/body/ring so you can find them again
