@@ -1,6 +1,6 @@
 # Elite Dangerous Mining Mapper
-A Stream Deck plugin for Elite Dangerous miners: screenshot your best asteroids while
-you mine, automatically organized by system/body/ring so you can find them again
+A Stream Deck plugin for Elite Dangerous that allows you to screenshot your best asteroids 
+while you mine, automatically organized by system/body/ring so you can find them again
 next time you're at the same hotspot. Includes a built-in html viewer with drawing/text
 annotation tools and per-shot notes.
 
