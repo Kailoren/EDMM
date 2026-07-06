@@ -42,7 +42,7 @@ Click the **Start/Stop Session** key once in the Stream Deck app to open its set
 panel. There's a text field for the base folder where screenshots get saved. Navigate
 to where you want the folder to be, copy the path and paste it into the box.
 
-There are also three manual override fields (System / Body / Ring) — you only need
+There are also three manual override fields (System / Body / Ring). You only need
 these if the plugin hasn't detected your current ring yet (e.g. right after starting
 the game, before you've dropped into a ring). Normally you won't need to touch them.
 
@@ -59,7 +59,7 @@ the game, before you've dropped into a ring). Normally you won't need to touch t
    
    <img width="610" height="776" alt="Screenshot 2026-07-06 141009" src="https://github.com/user-attachments/assets/0ac28122-b865-43ea-b71e-ae3950a1b6dd" />
    
-3. Press **Start Session** - the key's icon changes to confirm it's now
+3. Press **Start Session** and the key's icon changes to confirm it's now
    recording. If you tagged a mineral, screenshots go into a subfolder named after
    it within the ring, so two different hotspots in the same ring stay separate.
 4. Mine as normal. Whenever you see a high % rock, press **Save Snapshot**.
