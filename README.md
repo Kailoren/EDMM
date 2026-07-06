@@ -23,7 +23,7 @@ will prompt you to install it. Just click accept, and it'll show up under the ca
 ## 2. Add the buttons
 
 Drag these six actions onto keys on your Stream Deck:
-
+<img width="199" height="130" alt="Screenshot 2026-07-06 125150" src="https://github.com/user-attachments/assets/90356a67-a970-4fe2-ada0-22f18a6d6f0e" />
 | Button | What it does |
 |---|---|
 | **Start/Stop Session** | Press once to lock onto your current System/Body/Ring (and mineral tag, if selected) and start recording (icon switches to show it's active). Press again to end the session. |
@@ -34,6 +34,7 @@ Drag these six actions onto keys on your Stream Deck:
 | **Open Screenshots Folder** | Opens the base screenshots folder directly in File Explorer. |
 
 ## 3. Set your screenshots folder
+<img width="508" height="183" alt="Screenshot 2026-07-06 111947" src="https://github.com/user-attachments/assets/71992c25-91ba-4dc6-af9d-01ccf3aad600" />
 
 Click the **Start/Stop Session** key once in the Stream Deck app to open its settings
 panel. There's a text field for the base folder where screenshots get saved. Navigate
@@ -53,6 +54,7 @@ the game, before you've dropped into a ring). Normally you won't need to touch t
    Click the one you're mining. If a ring has no scan data yet, a generic list is
    shown so you can still tag manually. You can also clear the selection, and it's
    always safe to skip this step entirely if you don't want a mineral-specific tag.
+   <img width="610" height="776" alt="Screenshot 2026-07-06 141009" src="https://github.com/user-attachments/assets/0ac28122-b865-43ea-b71e-ae3950a1b6dd" />
 3. Press **Start Session** - the key's icon changes to confirm it's now
    recording. If you tagged a mineral, screenshots go into a subfolder named after
    it within the ring, so two different hotspots in the same ring stay separate.
@@ -68,6 +70,7 @@ the game, before you've dropped into a ring). Normally you won't need to touch t
    detailed notes underneath each one, and undo/redo your edits. Saving an
    annotation keeps the original screenshot untouched and creates a separate 
    copy.
+   <img width="1265" height="1003" alt="Screenshot 2026-07-06 141056" src="https://github.com/user-attachments/assets/1da2e4ef-d8bb-4344-b935-88caae44f2b2" />
 8. Press **Open Screenshots Folder** anytime to browse the raw files directly in
    File Explorer if you want to manually delete duplicates or grab files to
    upload/share.
@@ -80,6 +83,8 @@ send to someone else. To bring a shared book into your own library, go to the
 library viewer's landing page (before selecting anything in the sidebar) and use the
 **Import a Shared Book** box to upload the .zip. It merges in without overwriting
 or colliding with anything you already have for that ring/mineral.
+<img width="434" height="255" alt="Screenshot 2026-07-06 141128" src="https://github.com/user-attachments/assets/44c4a8d8-bb57-46d2-9274-2a132589ebe4" />
+
 
 ## Troubleshooting
 
