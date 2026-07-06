@@ -23,7 +23,9 @@ will prompt you to install it. Just click accept, and it'll show up under the ca
 ## 2. Add the buttons
 
 Drag these six actions onto keys on your Stream Deck:
+
 <img width="199" height="130" alt="Screenshot 2026-07-06 125150" src="https://github.com/user-attachments/assets/90356a67-a970-4fe2-ada0-22f18a6d6f0e" />
+
 | Button | What it does |
 |---|---|
 | **Start/Stop Session** | Press once to lock onto your current System/Body/Ring (and mineral tag, if selected) and start recording (icon switches to show it's active). Press again to end the session. |
@@ -83,6 +85,7 @@ send to someone else. To bring a shared book into your own library, go to the
 library viewer's landing page (before selecting anything in the sidebar) and use the
 **Import a Shared Book** box to upload the .zip. It merges in without overwriting
 or colliding with anything you already have for that ring/mineral.
+
 <img width="434" height="255" alt="Screenshot 2026-07-06 141128" src="https://github.com/user-attachments/assets/44c4a8d8-bb57-46d2-9274-2a132589ebe4" />
 
 
