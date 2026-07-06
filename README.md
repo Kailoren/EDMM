@@ -92,8 +92,8 @@ or colliding with anything you already have for that ring/mineral.
   session is active (after pressing Start/Stop Session).
 - **Select Mineral picker shows "No DSS data for this body yet"**: you haven't
   scanned any of that body's rings yet in the current game session (or the game was
-  restarted since you last scanned it). DSS the ring, then reopen the picker - you
-  don't need to fully map the whole planet, scanning the ring itself is enough.
+  restarted since you last scanned it). DSS the ring, then reopen the picker or refresh
+  the page
 - **Stream Deck feels laggy while the plugin's buttons are visible**: this was a bug
   in earlier versions where the journal watcher reacted to every file Elite
   Dangerous touches (Status.json, Cargo.json, etc.), not just the journal log. It's
