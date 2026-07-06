@@ -56,7 +56,9 @@ the game, before you've dropped into a ring). Normally you won't need to touch t
    Click the one you're mining. If a ring has no scan data yet, a generic list is
    shown so you can still tag manually. You can also clear the selection, and it's
    always safe to skip this step entirely if you don't want a mineral-specific tag.
+   
    <img width="610" height="776" alt="Screenshot 2026-07-06 141009" src="https://github.com/user-attachments/assets/0ac28122-b865-43ea-b71e-ae3950a1b6dd" />
+   
 3. Press **Start Session** - the key's icon changes to confirm it's now
    recording. If you tagged a mineral, screenshots go into a subfolder named after
    it within the ring, so two different hotspots in the same ring stay separate.
@@ -73,6 +75,7 @@ the game, before you've dropped into a ring). Normally you won't need to touch t
    annotation keeps the original screenshot untouched and creates a separate 
    copy.
    <img width="1265" height="1003" alt="Screenshot 2026-07-06 141056" src="https://github.com/user-attachments/assets/1da2e4ef-d8bb-4344-b935-88caae44f2b2" />
+   
 8. Press **Open Screenshots Folder** anytime to browse the raw files directly in
    File Explorer if you want to manually delete duplicates or grab files to
    upload/share.
