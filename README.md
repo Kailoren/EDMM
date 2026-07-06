@@ -33,7 +33,7 @@ Drag these six actions onto keys on your Stream Deck:
 | **Open Library** | Opens a local web page listing every system/body/ring/mineral you've recorded, with a viewer to page through shots and annotate them, plus a mineral filter. |
 | **Open Screenshots Folder** | Opens the base screenshots folder directly in File Explorer. |
 
-## 3. (Optional) Set your screenshots folder
+## 3. Set your screenshots folder
 
 Click the **Start/Stop Session** key once in the Stream Deck app to open its settings
 panel. There's a text field for the base folder where screenshots get saved. Navigate
