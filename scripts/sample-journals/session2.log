@@ -1,0 +1,4 @@
+{"timestamp":"2026-07-05T21:00:00Z","event":"Fileheader","part":1,"language":"English/UK","gameversion":"4.0.0.100","build":"r1"}
+{"timestamp":"2026-07-05T21:00:05Z","event":"LoadGame","Commander":"TestCMDR","GameMode":"Open"}
+{"timestamp":"2026-07-05T21:00:10Z","event":"FSDJump","StarSystem":"Col 285 Sector YZ-A d13"}
+{"timestamp":"2026-07-05T21:01:00Z","event":"SupercruiseExit","StarSystem":"Col 285 Sector YZ-A d13","Body":"Col 285 Sector YZ-A d13 2 A Ring","BodyType":"PlanetaryRing"}

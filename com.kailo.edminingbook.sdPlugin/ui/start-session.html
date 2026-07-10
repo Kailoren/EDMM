@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  body { font-family: system-ui, sans-serif; background: #2d2d2d; color: #e8e8e8; margin: 0; padding: 12px; font-size: 13px; }
+  .field { margin-bottom: 14px; }
+  label { display: block; margin-bottom: 4px; color: #9aa3af; font-size: 12px; }
+  input { width: 100%; box-sizing: border-box; background: #1c1c1c; border: 1px solid #444; color: #e8e8e8; padding: 6px 8px; border-radius: 4px; }
+  .hint { font-size: 11px; color: #6b7280; margin-bottom: 10px; }
+  h3 { font-size: 13px; margin: 18px 0 8px; color: #9fb4d1; }
+  h3:first-child { margin-top: 0; }
+</style>
+</head>
+<body>
+  <h3>Recording Location</h3>
+  <div class="field">
+    <label for="baseDir">Base folder for the book (shared by all actions)</label>
+    <input id="baseDir" type="text" placeholder="C:\Users\you\Pictures\EliteMiningBook" />
+  </div>
+
+  <h3>Manual Override</h3>
+  <div class="hint">Only used when the journal hasn't reported a current ring yet (e.g. right after starting the plugin, before you've dropped into a ring).</div>
+  <div class="field">
+    <label for="manualSystem">System</label>
+    <input id="manualSystem" type="text" placeholder="Wolf 359" />
+  </div>
+  <div class="field">
+    <label for="manualBody">Body</label>
+    <input id="manualBody" type="text" placeholder="Wolf 359 6" />
+  </div>
+  <div class="field">
+    <label for="manualRing">Ring</label>
+    <input id="manualRing" type="text" placeholder="A Ring" />
+  </div>
+
+<script>
+let websocket = null;
+let uuid = null;
+
+window.connectElgatoStreamDeckSocket = (port, inUuid, event, _info, _actionInfo) => {
+  uuid = inUuid;
+  websocket = new WebSocket("ws://127.0.0.1:" + port);
+
+  websocket.onopen = () => {
+    websocket.send(JSON.stringify({ event, uuid }));
+    websocket.send(JSON.stringify({ event: "getSettings", context: uuid }));
+    websocket.send(JSON.stringify({ event: "getGlobalSettings", context: uuid }));
+  };
+
+  websocket.onmessage = (msg) => {
+    const data = JSON.parse(msg.data);
+    if (data.event === "didReceiveSettings") {
+      const s = data.payload.settings || {};
+      document.getElementById("manualSystem").value = s.manualSystem || "";
+      document.getElementById("manualBody").value = s.manualBody || "";
+      document.getElementById("manualRing").value = s.manualRing || "";
+    }
+    if (data.event === "didReceiveGlobalSettings") {
+      const s = data.payload.settings || {};
+      document.getElementById("baseDir").value = s.baseDir || "";
+    }
+  };
+};
+
+function sendSettings() {
+  if (!websocket || websocket.readyState !== WebSocket.OPEN) return;
+  websocket.send(JSON.stringify({
+    event: "setSettings",
+    context: uuid,
+    payload: {
+      manualSystem: document.getElementById("manualSystem").value,
+      manualBody: document.getElementById("manualBody").value,
+      manualRing: document.getElementById("manualRing").value
+    }
+  }));
+}
+
+function sendGlobalSettings() {
+  if (!websocket || websocket.readyState !== WebSocket.OPEN) return;
+  websocket.send(JSON.stringify({
+    event: "setGlobalSettings",
+    context: uuid,
+    payload: { baseDir: document.getElementById("baseDir").value }
+  }));
+}
+
+document.getElementById("baseDir").addEventListener("change", sendGlobalSettings);
+document.getElementById("manualSystem").addEventListener("change", sendSettings);
+document.getElementById("manualBody").addEventListener("change", sendSettings);
+document.getElementById("manualRing").addEventListener("change", sendSettings);
+</script>
+</body>
+</html>

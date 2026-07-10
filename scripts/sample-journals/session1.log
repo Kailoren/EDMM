@@ -1,0 +1,5 @@
+{"timestamp":"2026-07-05T20:00:00Z","event":"Fileheader","part":1,"language":"English/UK","gameversion":"4.0.0.100","build":"r1"}
+{"timestamp":"2026-07-05T20:00:05Z","event":"LoadGame","Commander":"TestCMDR","GameMode":"Open"}
+{"timestamp":"2026-07-05T20:00:10Z","event":"Location","StarSystem":"Wolf 359","Body":"Wolf 359","BodyType":"Star"}
+{"timestamp":"2026-07-05T20:01:00Z","event":"FSDJump","StarSystem":"Wolf 359","Body":"Wolf 359 A"}
+{"timestamp":"2026-07-05T20:02:00Z","event":"SupercruiseExit","StarSystem":"Wolf 359","Body":"Wolf 359 6 A Ring","BodyType":"PlanetaryRing"}

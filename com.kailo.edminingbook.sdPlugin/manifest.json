@@ -1,0 +1,100 @@
+{
+  "Name": "Elite Dangerous Mining Mapper",
+  "Author": "CMDR Kailoren",
+  "Description": "Screenshot the good rocks while mining in Elite Dangerous, auto-organized by system/body/ring, so you can find them again next time.",
+  "UUID": "com.kailo.edminingbook",
+  "Version": "1.0.0.0",
+  "CodePath": "bin/plugin.cjs",
+  "Icon": "imgs/plugin-icon",
+  "Category": "Elite Dangerous Mining Mapper",
+  "CategoryIcon": "imgs/category-icon",
+  "SDKVersion": 2,
+  "Software": {
+    "MinimumVersion": "6.5"
+  },
+  "OS": [
+    {
+      "Platform": "windows",
+      "MinimumVersion": "10"
+    }
+  ],
+  "Nodejs": {
+    "Version": "20"
+  },
+  "Actions": [
+    {
+      "Name": "Start/Stop Session",
+      "UUID": "com.kailo.edminingbook.startsession",
+      "Tooltip": "Press to lock onto the current System/Body/Ring and start recording (arms Save Snapshot / Undo). Press again to end the session.",
+      "Icon": "imgs/actions/start-session",
+      "PropertyInspectorPath": "ui/start-session.html",
+      "States": [
+        {
+          "Image": "imgs/actions/start-session",
+          "TitleAlignment": "middle",
+          "FontSize": 12
+        },
+        {
+          "Image": "imgs/actions/end-session",
+          "TitleAlignment": "middle",
+          "FontSize": 12
+        }
+      ]
+    },
+    {
+      "Name": "Select Mineral",
+      "UUID": "com.kailo.edminingbook.selectmineral",
+      "Tooltip": "Opens a picker to tag the current session with a hotspot mineral (Laser or Core mining), used to create a per-mineral subfolder within the ring.",
+      "Icon": "imgs/actions/select-mineral",
+      "States": [
+        {
+          "Image": "imgs/actions/select-mineral"
+        }
+      ]
+    },
+    {
+      "Name": "Save Snapshot",
+      "UUID": "com.kailo.edminingbook.goodrock",
+      "Tooltip": "Screenshots the Elite Dangerous window and adds it to the current ring's book.",
+      "Icon": "imgs/actions/good-rock",
+      "States": [
+        {
+          "Image": "imgs/actions/good-rock"
+        }
+      ]
+    },
+    {
+      "Name": "Undo",
+      "UUID": "com.kailo.edminingbook.undo",
+      "Tooltip": "Deletes the most recently captured screenshot in the current ring's book.",
+      "Icon": "imgs/actions/undo",
+      "States": [
+        {
+          "Image": "imgs/actions/undo"
+        }
+      ]
+    },
+    {
+      "Name": "Open Library",
+      "UUID": "com.kailo.edminingbook.openbook",
+      "Tooltip": "Opens the local web viewer to page through recorded hotspot screenshots.",
+      "Icon": "imgs/actions/open-book",
+      "States": [
+        {
+          "Image": "imgs/actions/open-book"
+        }
+      ]
+    },
+    {
+      "Name": "Open Screenshots Folder",
+      "UUID": "com.kailo.edminingbook.openfolder",
+      "Tooltip": "Opens the base screenshots folder (set in Start Session) in File Explorer, so you can manually manage files before uploading.",
+      "Icon": "imgs/actions/open-folder",
+      "States": [
+        {
+          "Image": "imgs/actions/open-folder"
+        }
+      ]
+    }
+  ]
+}
