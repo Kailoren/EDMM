@@ -48,8 +48,7 @@ the game, before you've dropped into a ring). Normally you won't need to touch t
 
 ## 4. Using it while mining
 
-1. Fly to a ring and DSS-scan it if you want mineral hotspots detected — the plugin picks this
-   up passively from the journal, no need to fully map the whole planet.
+1. FFly to a ring and DSS it to detect the mineral hotspots. The plugin picks this up passively from the journal when you scan the ring.
 2. If the ring has one or more known hotspots, press **Select Mineral** to open the
    picker in your browser. It'll show a Laser Mining / Core Mining column pair for
    every ring you've scanned at that body, with known minerals highlighted in green.
