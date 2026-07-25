@@ -21,6 +21,16 @@ interface ImportedManifest {
 
 const IMAGE_ENTRY_PATTERN = /^images\/([^/]+\.png)$/;
 const SHOT_FILE_PATTERN = /^\d+\.png$/;
+const PNG_MAGIC = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+
+// Shared books come from other players, not just future-self - these caps stop a hostile
+// zip (bomb-style compression ratios, oversized entries, disguised non-image payloads)
+// from being accepted as a valid import.
+const MAX_ZIP_BYTES = 200 * 1024 * 1024;
+const MAX_ENTRIES = 500;
+const MAX_MANIFEST_BYTES = 5 * 1024 * 1024;
+const MAX_IMAGE_BYTES = 25 * 1024 * 1024;
+const MAX_COMPRESSION_RATIO = 100;
 
 function validateImportedManifest(raw: unknown): ImportedManifest {
 	if (typeof raw !== "object" || raw === null) {
@@ -80,6 +90,10 @@ export interface ImportResult {
  * so imported shots never collide with the user's own screenshots of the same ring.
  */
 export function importBookIntoLibrary(baseDir: string, zipBuffer: Buffer): ImportResult {
+	if (zipBuffer.length > MAX_ZIP_BYTES) {
+		throw new Error(`zip archive is too large (${Math.round(zipBuffer.length / 1024 / 1024)} MB, max ${MAX_ZIP_BYTES / 1024 / 1024} MB)`);
+	}
+
 	let zip: AdmZip;
 	try {
 		zip = new AdmZip(zipBuffer);
@@ -91,10 +105,16 @@ export function importBookIntoLibrary(baseDir: string, zipBuffer: Buffer): Impor
 	if (entries.length === 0) {
 		throw new Error("zip archive is empty");
 	}
+	if (entries.length > MAX_ENTRIES) {
+		throw new Error(`zip archive has too many entries (${entries.length}, max ${MAX_ENTRIES})`);
+	}
 
 	const manifestEntry = zip.getEntry("manifest.json");
 	if (!manifestEntry) {
 		throw new Error("zip does not contain a manifest.json");
+	}
+	if (manifestEntry.header.size > MAX_MANIFEST_BYTES) {
+		throw new Error("manifest.json is too large");
 	}
 
 	let raw: unknown;
@@ -109,9 +129,21 @@ export function importBookIntoLibrary(baseDir: string, zipBuffer: Buffer): Impor
 	for (const entry of entries) {
 		if (entry.isDirectory) continue;
 		const match = IMAGE_ENTRY_PATTERN.exec(entry.entryName);
-		if (match) {
-			images.set(match[1], entry.getData());
+		if (!match) continue;
+
+		const { size, compressedSize } = entry.header;
+		if (size > MAX_IMAGE_BYTES) {
+			throw new Error(`"${entry.entryName}" is too large (${Math.round(size / 1024 / 1024)} MB, max ${MAX_IMAGE_BYTES / 1024 / 1024} MB)`);
 		}
+		if (compressedSize > 0 && size / compressedSize > MAX_COMPRESSION_RATIO) {
+			throw new Error(`"${entry.entryName}" has a suspicious compression ratio and was rejected`);
+		}
+
+		const data = entry.getData();
+		if (data.length > MAX_IMAGE_BYTES || !data.subarray(0, 8).equals(PNG_MAGIC)) {
+			throw new Error(`"${entry.entryName}" is not a valid PNG image`);
+		}
+		images.set(match[1], data);
 	}
 	for (const shot of manifest.shots) {
 		if (!images.has(shot.file)) {

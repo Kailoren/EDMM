@@ -6,6 +6,7 @@ import { SelectMineralAction } from "./actions/selectMineralAction.js";
 import { SessionToggleAction } from "./actions/sessionToggleAction.js";
 import { UndoAction } from "./actions/undoAction.js";
 import { startDashboardServer } from "./dashboard/server.js";
+import { checkForUpdate } from "./dashboard/updateCheck.js";
 import { journalTailer } from "./runtime.js";
 
 streamDeck.logger.setLevel("info");
@@ -19,5 +20,6 @@ streamDeck.actions.registerAction(new OpenFolderAction());
 
 journalTailer.start();
 startDashboardServer();
+checkForUpdate();
 
 streamDeck.connect();

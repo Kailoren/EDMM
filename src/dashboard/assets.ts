@@ -9,6 +9,11 @@ export const INDEX_HTML = `<!DOCTYPE html>
   body { margin: 0; font-family: system-ui, sans-serif; background: #0a0a0a; color: #eae4da; display: flex; height: 100vh; }
   #sites { width: 320px; overflow-y: auto; border-right: 1px solid #3a2410; padding: 8px; }
   #sites h1 { font-size: 15px; margin: 4px 8px 12px; color: #FF7500; }
+  #updateBanner { display: none; background: #2a1a0a; border: 1px solid #FF7500; border-radius: 6px; padding: 8px 10px; margin: 0 8px 12px; font-size: 12px; color: #eae4da; line-height: 1.5; }
+  #updateBanner a { color: #FF7500; font-weight: 600; text-decoration: none; }
+  #updateBanner a:hover { text-decoration: underline; }
+  #updateBanner .dismiss { float: right; cursor: pointer; color: #9c7a55; margin-left: 8px; }
+  #updateBanner .dismiss:hover { color: #eae4da; }
   #mineralFilter { margin: 0 8px 12px; }
   #mineralFilter select { width: 100%; background: #120e08; border: 1px solid #5a3a15; color: #eae4da; border-radius: 6px; padding: 6px; font-size: 12px; }
   .system-header { padding: 8px 10px; cursor: pointer; font-weight: 600; font-size: 13px; border-radius: 6px; display: flex; justify-content: space-between; }
@@ -74,6 +79,11 @@ export const INDEX_HTML = `<!DOCTYPE html>
 <body>
   <div id="sites">
     <h1>Recorded Hotspots</h1>
+    <div id="updateBanner">
+      <span class="dismiss" id="updateBannerDismiss" title="Dismiss">&times;</span>
+      <span id="updateBannerText"></span>
+      <a id="updateBannerLink" href="#" target="_blank" rel="noopener noreferrer">Get it</a>
+    </div>
     <div id="mineralFilter">
       <select id="mineralFilterSelect">
         <option value="">All minerals</option>
@@ -178,6 +188,32 @@ async function loadSites() {
   populateMineralFilter();
   renderSites();
 }
+
+const DISMISSED_UPDATE_KEY = "edmmDismissedUpdateVersion";
+let latestUpdateVersion = null;
+
+async function checkForUpdateBanner() {
+  try {
+    const res = await fetch("/api/update-check");
+    const data = await res.json();
+    if (!data.updateAvailable || !data.latestVersion) return;
+    if (localStorage.getItem(DISMISSED_UPDATE_KEY) === data.latestVersion) return;
+
+    latestUpdateVersion = data.latestVersion;
+    document.getElementById("updateBannerText").textContent =
+      "Update available: v" + data.latestVersion + " (you're on v" + data.currentVersion + "), ";
+    const link = document.getElementById("updateBannerLink");
+    link.href = data.releaseUrl || "https://github.com/Kailoren/EDMM/releases/latest";
+    document.getElementById("updateBanner").style.display = "block";
+  } catch {
+    // non-fatal - banner just doesn't show
+  }
+}
+
+document.getElementById("updateBannerDismiss").addEventListener("click", () => {
+  document.getElementById("updateBanner").style.display = "none";
+  if (latestUpdateVersion) localStorage.setItem(DISMISSED_UPDATE_KEY, latestUpdateVersion);
+});
 
 function populateMineralFilter() {
   const select = document.getElementById("mineralFilterSelect");
@@ -572,7 +608,7 @@ function openTextBoxEditor(box, editingIndex) {
     height: box.height,
     text: box.text || "",
     options: { ...box.options },
-    editingIndex: editingIndex == null ? null : editingIndex
+    editingIndex: editingIndex ?? null
   };
   redrawAll();
 
@@ -967,6 +1003,7 @@ function escapeHtml(s) {
 document.getElementById("mineralFilterSelect").addEventListener("change", renderSites);
 
 loadSites();
+checkForUpdateBanner();
 </script>
 </body>
 </html>
@@ -1012,13 +1049,25 @@ export const MINERAL_PICKER_HTML = `<!DOCTYPE html>
 <script>
 let selectedMineral = null;
 
-function mineralButton(name, grid, hotspots) {
+/**
+ * A handful of minerals (Bromellite, Low Temperature Diamonds, Painite, Platinum) are
+ * mineable via both methods, so the same name appears in both columns. The tag sent to
+ * the backend (and stored as the session's mineral/folder label) disambiguates those by
+ * appending the method; unambiguous minerals keep their plain name so existing libraries
+ * for those don't get split into a new subfolder for no reason.
+ */
+function mineralTag(name, methodLabel, ambiguousNames) {
+  return ambiguousNames.has(name) ? name + " (" + methodLabel + ")" : name;
+}
+
+function mineralButton(name, grid, hotspots, tag) {
   const btn = document.createElement("button");
   btn.className = "mineral-btn";
   btn.textContent = name;
+  btn.dataset.mineralTag = tag;
   if (hotspots.includes(name)) btn.classList.add("suggested");
-  if (name === selectedMineral) btn.classList.add("active");
-  btn.addEventListener("click", () => selectMineral(name));
+  if (tag === selectedMineral) btn.classList.add("active");
+  btn.addEventListener("click", () => selectMineral(tag));
   grid.appendChild(btn);
 }
 
@@ -1047,8 +1096,9 @@ function renderRingBlock(container, title, hotspots, laserMinerals, coreMinerals
   coreGrid.className = "mineral-grid";
   coreColumn.appendChild(coreGrid);
 
-  for (const name of laserMinerals) mineralButton(name, laserGrid, hotspots);
-  for (const name of coreMinerals) mineralButton(name, coreGrid, hotspots);
+  const ambiguousNames = new Set(laserMinerals.filter((m) => coreMinerals.includes(m)));
+  for (const name of laserMinerals) mineralButton(name, laserGrid, hotspots, mineralTag(name, "Laser Mining", ambiguousNames));
+  for (const name of coreMinerals) mineralButton(name, coreGrid, hotspots, mineralTag(name, "Core Mining", ambiguousNames));
 
   columns.appendChild(laserColumn);
   columns.appendChild(coreColumn);
@@ -1073,7 +1123,7 @@ async function selectMineral(mineral) {
       : "Selection cleared.";
     selectedMineral = mineral;
     document.querySelectorAll(".mineral-btn").forEach((btn) => {
-      btn.classList.toggle("active", btn.textContent === mineral);
+      btn.classList.toggle("active", btn.dataset.mineralTag === mineral);
     });
     renderBanner();
   } catch (err) {

@@ -22,11 +22,12 @@ export interface PublishedManifest {
  */
 export function renderPublishedViewer(manifest: PublishedManifest): string {
 	const dataJson = JSON.stringify(manifest).replace(/</g, "\\u003c");
+	const titleLine = `${escapeHtml(manifest.starSystem)} / ${escapeHtml(manifest.body)} / ${escapeHtml(manifest.ring)}${manifest.mineral ? ` / ${escapeHtml(manifest.mineral)}` : ""}`;
 	return `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>${escapeHtml(manifest.starSystem)} / ${escapeHtml(manifest.body)} / ${escapeHtml(manifest.ring)}${manifest.mineral ? ` / ${escapeHtml(manifest.mineral)}` : ""}</title>
+<title>${titleLine}</title>
 <style>
   :root { color-scheme: dark; }
   * { box-sizing: border-box; }
@@ -44,7 +45,7 @@ export function renderPublishedViewer(manifest: PublishedManifest): string {
 </style>
 </head>
 <body>
-  <h1>${escapeHtml(manifest.starSystem)} / ${escapeHtml(manifest.body)} / ${escapeHtml(manifest.ring)}${manifest.mineral ? ` / ${escapeHtml(manifest.mineral)}` : ""}</h1>
+  <h1>${titleLine}</h1>
   <div id="sub">Published ${escapeHtml(new Date(manifest.publishedAt).toLocaleString())}</div>
   <img id="image" />
   <div id="controls">

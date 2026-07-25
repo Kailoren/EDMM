@@ -63,9 +63,13 @@ window.connectElgatoStreamDeckSocket = (port, inUuid, event, _info, _actionInfo)
   };
 };
 
-function sendSettings() {
+function wsSend(message) {
   if (!websocket || websocket.readyState !== WebSocket.OPEN) return;
-  websocket.send(JSON.stringify({
+  websocket.send(JSON.stringify(message));
+}
+
+function sendSettings() {
+  wsSend({
     event: "setSettings",
     context: uuid,
     payload: {
@@ -73,16 +77,15 @@ function sendSettings() {
       manualBody: document.getElementById("manualBody").value,
       manualRing: document.getElementById("manualRing").value
     }
-  }));
+  });
 }
 
 function sendGlobalSettings() {
-  if (!websocket || websocket.readyState !== WebSocket.OPEN) return;
-  websocket.send(JSON.stringify({
+  wsSend({
     event: "setGlobalSettings",
     context: uuid,
     payload: { baseDir: document.getElementById("baseDir").value }
-  }));
+  });
 }
 
 document.getElementById("baseDir").addEventListener("change", sendGlobalSettings);

@@ -3,7 +3,7 @@
   "Author": "CMDR Kailoren",
   "Description": "Screenshot the good rocks while mining in Elite Dangerous, auto-organized by system/body/ring, so you can find them again next time.",
   "UUID": "com.kailo.edminingbook",
-  "Version": "1.0.0.0",
+  "Version": "1.1.1.0",
   "CodePath": "bin/plugin.cjs",
   "Icon": "imgs/plugin-icon",
   "Category": "Elite Dangerous Mining Mapper",

@@ -29,15 +29,12 @@ function resolveSavedGamesDir(): string {
 		);
 		const match = output.match(/REG_(?:EXPAND_)?SZ\s+(.+)/);
 		if (match) {
-			const raw = match[1].trim();
-			const expanded = expandEnvVars(raw);
+			const expanded = expandEnvVars(match[1].trim());
 			if (existsSync(expanded)) {
 				return expanded;
 			}
 		}
-	} catch {
-		// fall through to default below
-	}
+	} catch {}
 	return join(homedir(), "Saved Games");
 }
 

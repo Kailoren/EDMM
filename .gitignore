@@ -1,3 +1,11 @@
 node_modules/
 com.kailo.edminingbook.sdPlugin/logs/
 *.bak
+
+# Unrelated sibling projects that happen to share this parent folder
+/EDCF/
+/EDCG-Red/
+/FleetView/
+/WineRunner/
+/winerunner-plugin/
+/.claude/

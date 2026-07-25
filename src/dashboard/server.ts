@@ -9,6 +9,7 @@ import { importBookIntoLibrary } from "../store/importBook.js";
 import { getBaseDir } from "../store/settings.js";
 import { MINERAL_PICKER_HTML, INDEX_HTML } from "./assets.js";
 import { buildPublishedBook } from "./publish.js";
+import { getUpdateCheckState } from "./updateCheck.js";
 
 export const DASHBOARD_PORT = 39871;
 
@@ -69,6 +70,12 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse): Promise
 	if (url.pathname === "/" || url.pathname === "/index.html") {
 		res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
 		res.end(INDEX_HTML);
+		return;
+	}
+
+	if (url.pathname === "/api/update-check") {
+		res.writeHead(200, { "Content-Type": "application/json" });
+		res.end(JSON.stringify(getUpdateCheckState()));
 		return;
 	}
 

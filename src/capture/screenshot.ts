@@ -129,8 +129,7 @@ if (-not $ok) {
     exit 5
 }
 
-$outDir = Split-Path -Parent $OutputPath
-if (-not (Test-Path $outDir)) { New-Item -ItemType Directory -Force -Path $outDir | Out-Null }
+New-Item -ItemType Directory -Force -Path (Split-Path -Parent $OutputPath) | Out-Null
 $bmp.Save($OutputPath, [System.Drawing.Imaging.ImageFormat]::Png)
 $g.Dispose()
 $bmp.Dispose()
