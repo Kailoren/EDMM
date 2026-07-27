@@ -3,6 +3,7 @@ com.kailo.edminingbook.sdPlugin/logs/
 *.bak
 
 # Unrelated sibling projects that happen to share this parent folder
+/ColonyTracker/
 /EDCF/
 /EDCG-Red/
 /FleetView/
