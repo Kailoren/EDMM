@@ -1,12 +1,19 @@
+# This repo shares its parent folder with unrelated sibling projects, so ignore
+# everything at the top level and opt EDMM's own files back in. Any new subfolder
+# added to the folder is then ignored automatically.
+/*
+!/.gitignore
+!/LICENSE
+!/README.md
+!/package.json
+!/package-lock.json
+!/rollup.config.mjs
+!/tsconfig.json
+!/scripts/
+!/src/
+!/com.kailo.edminingbook.sdPlugin/
+
+# Leftovers inside the project's own folders
 node_modules/
 com.kailo.edminingbook.sdPlugin/logs/
 *.bak
-
-# Unrelated sibling projects that happen to share this parent folder
-/ColonyTracker/
-/EDCF/
-/EDCG-Red/
-/FleetView/
-/WineRunner/
-/winerunner-plugin/
-/.claude/
